@@ -24,7 +24,7 @@ export default () => {
     }
 
     useEffect(() => {
-        searchApi('pasta');
+        searchApi('grill');
     }, []);
 
     //return what we use in different component

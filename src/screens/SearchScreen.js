@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
 import ResultList from '../components/ResultsList';
@@ -15,27 +15,34 @@ const SearchScreen = () => {
     }
 
     return(
-        <View>
+        //flex or empty tag, so we'll use only available screen space
+        //<View style={{ flex: 1 }}>
+        <>
             <SearchBar
                 term={term}
                 onTermChange={setTerm}
                 onTermSubmit={() => searchApi(term)}
             />
             {errorMess ? <Text>{errorMess}</Text> : null }
-            <Text>we have found {results.length} results</Text>
-            <ResultList
-                title='Cost Effective'
-                results={filterResultsByPrice('$')}
-            />
-            <ResultList
-                title='Bit Pricier'
-                results={filterResultsByPrice('$$')}
-            />
-            <ResultList
-                title='Big Spender'
-                results={filterResultsByPrice('$$$')}
-            />
-        </View>
+            <ScrollView>
+                <ResultList
+                    title='($) Cost Effective'
+                    results={filterResultsByPrice('$')}
+                />
+                <ResultList
+                    title='($$) Bit Pricier'
+                    results={filterResultsByPrice('$$')}
+                />
+                <ResultList
+                    title='($$$) Big Spender'
+                    results={filterResultsByPrice('$$$')}
+                />
+                <ResultList
+                    title='($$$$) High End'
+                    results={filterResultsByPrice('$$$$')}
+                />
+            </ScrollView>
+        </>
     );
 };
 
